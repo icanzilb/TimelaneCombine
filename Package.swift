@@ -20,7 +20,7 @@ let package = Package(
     targets: [
         .target(
             name: "TimelaneCombine",
-            dependencies: []),
+            dependencies: ["TimelaneCore"]),
         .testTarget(
             name: "TimelaneCombineTests",
             dependencies: ["TimelaneCombine"]),
