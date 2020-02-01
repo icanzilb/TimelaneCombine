@@ -4,6 +4,15 @@
 
 ![Timelane Instrument](etc/timelane.png)
 
+Contents:
+
+1. [Usage](#Usage)
+2. [Reference](#Reference)
+3. [Installation](#Installation)
+4. [Demo](#Demo)
+5. [Todo](#Todo)
+6. [License](#License)
+
 # Usage
 
 Import the TimelaneCombine framework in your code:
