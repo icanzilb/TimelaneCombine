@@ -39,8 +39,6 @@ extension Publishers {
         receiveSubscription: { [weak self] sub in
           guard let self = self else { return }
           
-          sub.request(.unlimited)
-          
           if self.filter.contains(.subscription) {
             subscription.begin(source: self.source)
           }
