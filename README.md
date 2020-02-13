@@ -1,5 +1,7 @@
 # Timelane + Combine
 
+![Timelane Icon](etc/Icon_128x128@2x.png)
+
 **TimelaneCombine** provides a Combine bindings for profiling Combine code with the Timelane Instrument.
 
 ![Timelane Instrument](etc/timelane.png)
