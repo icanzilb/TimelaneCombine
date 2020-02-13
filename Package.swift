@@ -15,7 +15,7 @@ let package = Package(
             targets: ["TimelaneCombine"]),
     ],
     dependencies: [
-      .package(url: "https://github.com/icanzilb/TimelaneCore", .branch("master"))
+        .package(url: "https://github.com/icanzilb/TimelaneCore", from: "0.9.0")
     ],
     targets: [
         .target(
