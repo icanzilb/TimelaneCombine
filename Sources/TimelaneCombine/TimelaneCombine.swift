@@ -73,7 +73,14 @@ extension Publishers {
           subscriber.receive(completion: completion)
         }
       )
-      upstream.subscribe(sink)
+
+      upstream
+        .handleEvents(receiveCancel: {
+          // Cancelling the subscription
+          subscription.end(state: .cancelled)
+          subscription.event(value: .cancelled, source: source)
+        })
+        .subscribe(sink)
     }
   }
 }
