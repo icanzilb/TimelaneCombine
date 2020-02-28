@@ -65,7 +65,7 @@ I . Automatically in Xcode:
 II . Manually in your **Package.swift** file add:
 
 ```swift
-.package(url: "https://github.com/icanzilb/TimelaneCombine", .from("0.9.0"))
+.package(url: "https://github.com/icanzilb/TimelaneCombine", .from("1.0.0"))
 ```
 
 # Demo

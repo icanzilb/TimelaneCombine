@@ -7,7 +7,9 @@ let package = Package(
     name: "TimelaneCombine",
     platforms: [
       .macOS(.v10_15),
-      .iOS(.v13)
+      .iOS(.v13),
+      .tvOS(.v13),
+      .watchOS(.v6)
     ],
     products: [
         .library(
@@ -15,7 +17,7 @@ let package = Package(
             targets: ["TimelaneCombine"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/icanzilb/TimelaneCore", from: "0.9.0")
+        .package(url: "https://github.com/icanzilb/TimelaneCore", from: "1.0.0")
     ],
     targets: [
         .target(
@@ -24,5 +26,6 @@ let package = Package(
         .testTarget(
             name: "TimelaneCombineTests",
             dependencies: ["TimelaneCombine"]),
-    ]
+    ],
+    swiftLanguageVersions: [.v5]
 )
