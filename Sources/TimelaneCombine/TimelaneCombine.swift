@@ -8,7 +8,6 @@ import Combine
 import TimelaneCore
 
 extension Publishers {
-    
     public class TimelanePublisher<Upstream: Publisher>: Publisher {
         public enum LaneType: Int, CaseIterable {
             case subscription, event
@@ -22,12 +21,18 @@ extension Publishers {
         private let subscription: Timelane.Subscription
         private let filter: Set<LaneType>
         private let source: String
+        private let transformValue: (Upstream.Output) -> String
         
-        public init(upstream: Upstream, name: String?, filter: Set<LaneType>, source: String) {
+        public init(upstream: Upstream,
+                    name: String?,
+                    filter: Set<LaneType>,
+                    source: String,
+                    transformValue: @escaping (Upstream.Output) -> String) {
             self.upstream = upstream
             self.filter = filter
             self.source = source
             self.subscription = Timelane.Subscription(name: name)
+            self.transformValue = transformValue
         }
         
         public func receive<S: Subscriber>(subscriber: S) where Failure == S.Failure, Output == S.Input {
@@ -45,10 +50,13 @@ extension Publishers {
                     
                     subscriber.receive(subscription: sub)
                 },
-                receiveValue: { value -> Subscribers.Demand in
+                receiveValue: { [weak self] value -> Subscribers.Demand in
+                    guard let transform = self?.transformValue else { return .none }
+
                     if filter.contains(.event) {
-                        subscription.event(value: .value(String(describing: value)), source: source)
+                        subscription.event(value: .value(transform(value)), source: source)
                     }
+
                     return subscriber.receive(value)
                 },
                 receiveCompletion: { completion in
@@ -90,11 +98,19 @@ extension Publishers {
 }
 
 extension Publisher {
-    public func lane(_ name: String, filter: Set<Publishers.TimelanePublisher<Self>.LaneType> = Set(Publishers.TimelanePublisher.LaneType.allCases), file: StaticString = #file, function: StaticString = #function, line: UInt = #line) -> Publishers.TimelanePublisher<Self> {
+    public func lane(_ name: String,
+                     filter: Set<Publishers.TimelanePublisher<Self>.LaneType> = Set(Publishers.TimelanePublisher.LaneType.allCases),
+                     file: StaticString = #file,
+                     function: StaticString  = #function, line: UInt = #line,
+                     transformValue: @escaping (Output) -> String = { String(describing: $0) })
+        -> Publishers.TimelanePublisher<Self> {
         let fileName = file.description.components(separatedBy: "/").last!
         let source = "\(fileName):\(line) - \(function)"
         
-        return Publishers.TimelanePublisher(upstream: self, name: name, filter: filter, source: source)
+        return Publishers.TimelanePublisher(upstream: self,
+                                            name: name,
+                                            filter: filter,
+                                            source: source,
+                                            transformValue: transformValue)
     }
 }
-
