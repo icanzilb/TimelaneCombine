@@ -7,9 +7,8 @@
 //
 
 import Combine
-import TimelaneCombine
 
-/// Property wrapper that offers a publisher for the given property,
+/// Property wrapper that offers a publisher for the given property
 /// **and** creates a Timelane lane for it.
 @propertyWrapper public class PublishedOnLane<Value> {
     
@@ -33,7 +32,7 @@ import TimelaneCombine
     ///   - name: The name of this lane; defaults to the
     ///           type of this property if not provided.
     public init(wrappedValue initialValue: Value,
-                laneName name: String? = nil) {
+                _ name: String? = nil) {
         self.value = initialValue
         self.laneName = name ?? "\(initialValue.self)"
     }
