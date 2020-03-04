@@ -8,6 +8,7 @@ import Combine
 import TimelaneCore
 
 extension Publishers {
+    
     public class TimelanePublisher<Upstream: Publisher>: Publisher {
         public enum LaneType: Int, CaseIterable {
             case subscription, event
@@ -98,12 +99,25 @@ extension Publishers {
 }
 
 extension Publisher {
+    
+    /// The `lane` operator logs the subscription and its events to the Timelane Instrument.
+    ///
+    ///  - Note: You can download the Timelane Instrument from http://timelane.tools
+    /// - Parameters:
+    ///   - name: A name for the lane when visualized in Instruments
+    ///   - filter: Which events to log subscriptions or data events.
+    ///             For example for a subscription on a subject you might be interested only in data events.
+    ///   - transformValue: An optional closure to format the subscription values for displaying in Instruments.
+    ///                     You can not only prettify the values but also change them completely, e.g. for arrays you can
+    ///                     it might be more useful to report the count of elements if there are a lot of them.
+    ///   - value: The value emitted by the subscription
     public func lane(_ name: String,
                      filter: Set<Publishers.TimelanePublisher<Self>.LaneType> = Set(Publishers.TimelanePublisher.LaneType.allCases),
                      file: StaticString = #file,
                      function: StaticString  = #function, line: UInt = #line,
-                     transformValue: @escaping (Output) -> String = { String(describing: $0) })
+                     transformValue: @escaping (_ value: Output) -> String = { String(describing: $0) })
         -> Publishers.TimelanePublisher<Self> {
+
         let fileName = file.description.components(separatedBy: "/").last!
         let source = "\(fileName):\(line) - \(function)"
         
