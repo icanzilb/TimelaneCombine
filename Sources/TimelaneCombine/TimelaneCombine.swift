@@ -39,6 +39,7 @@ extension Publishers {
             let filter = self.filter
             let source = self.source
             let subscription = self.subscription
+            let transform = self.transformValue
             
             let sink = AnySubscriber<Upstream.Output, Upstream.Failure>(
                 receiveSubscription: { [weak self] sub in
@@ -50,9 +51,7 @@ extension Publishers {
                     
                     subscriber.receive(subscription: sub)
                 },
-                receiveValue: { [weak self] value -> Subscribers.Demand in
-                    guard let transform = self?.transformValue else { return .none }
-
+                receiveValue: { value -> Subscribers.Demand in
                     if filter.contains(.event) {
                         subscription.event(value: .value(transform(value)), source: source)
                     }
