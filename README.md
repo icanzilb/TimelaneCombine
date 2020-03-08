@@ -53,6 +53,20 @@ Use `lane("Lane name")` to send data to both the subscriptions and events lanes 
 
 `lane("Lane name", filter: [.events])` sends events and values to the Events lane. Use this filter if you are only interested in values a subscription would emit (e.g. for example subjects).
 
+Additionally you can transform the values logged in Timelane by using the optional `transformValue` trailing closure:
+
+```swift
+lane("Lane name") { value in
+  return "Value: \(value)"
+}
+```
+
+In case you are using `@Published` you can easily log that subscription to Timelane by using replacing it with:
+
+```
+@PublishedOnLane("My Lane") var property: String
+```
+
 # Installation
 
 ## Swift Package Manager
@@ -65,7 +79,7 @@ I . Automatically in Xcode:
 II . Manually in your **Package.swift** file add:
 
 ```swift
-.package(url: "https://github.com/icanzilb/TimelaneCombine", .from("1.0.0"))
+.package(url: "https://github.com/icanzilb/TimelaneCombine", .from("1.0.1"))
 ```
 
 # Demo
