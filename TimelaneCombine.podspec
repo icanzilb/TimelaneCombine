@@ -23,8 +23,7 @@ TimelaneCombine provides a Combine bindings for profiling Reactive code with the
   s.tvos.deployment_target = '13.0'
   
   s.source_files = 'Sources/**/*.swift'  
-  s.frameworks = 'Foundation'
-  s.frameworks = 'Combine'
+  s.frameworks = 'Foundation', 'Combine'
   
   s.dependency 'TimelaneCore', '1.0.2'
 end
