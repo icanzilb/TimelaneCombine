@@ -21,7 +21,6 @@
 - [Reference](#Reference)
 - [Installation](#Installation)
 - [Demo](#Demo)
-- [Todo](#Todo)
 - [License](#License)
 
 # Usage
