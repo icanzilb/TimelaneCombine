@@ -86,6 +86,14 @@ In case you are using `@Published` you can easily log that subscription to Timel
 pod 'TimelaneCombine', '~> 1.0.3'
 ```
 
+### Carthage
+
+[Carthage](https://github.com/Carthage/Carthage) is a decentralized dependency manager that builds your dependencies and provides you with binary frameworks. To integrate TimelaneCombine into your Xcode project using Carthage, specify it in your `Cartfile`:
+
+```ogdl
+github "icanzilb/TimelaneCombine" "1.0.3"
+```
+
 ## Swift Package Manager
 
 I . Automatically in Xcode:
@@ -102,10 +110,6 @@ II . Manually in your **Package.swift** file add:
 # Demo
 
 The Timelane package contains a demo app at: https://github.com/icanzilb/timelane.
-
-# Todo
-
-- [ ] Carthage
 
 # License
 
