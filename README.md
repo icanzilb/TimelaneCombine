@@ -1,19 +1,28 @@
-# Timelane + Combine
+<h1 align="center"> Timelane + Combine </h1>
+<p align="center"> 
+   <img src="https://github.com/icanzilb/TimelaneCombine/blob/master/etc/Icon_128x128@2x.png" width="200” max-width="90%" alt="TimelaneCombine" />
+</p>
 
-![Timelane Icon](etc/Icon_128x128@2x.png)
+<p align="center">
+    <img src="https://img.shields.io/badge/Swift-5.2-orange.svg" />
+    <a href="https://cocoadocs.org/pods/TimelaneCombine/">
+        <img src="http://img.shields.io/badge/Cocoapods-available-green.svg?style=flat" alt="Cocoapod" />
+    </a>
+    <img src="https://img.shields.io/cocoapods/v/TimelaneCombine.svg" />
+    <img src="https://img.shields.io/cocoapods/l/TimelaneCombine.svg" />
+    <img src="https://img.shields.io/cocoapods/p/TimelaneCombine.svg" />
+</p>
 
 **TimelaneCombine** provides a Combine bindings for profiling Combine code with the Timelane Instrument.
 
 ![Timelane Instrument](etc/timelane.png)
 
-Contents:
-
-1. [Usage](#Usage)
-2. [Reference](#Reference)
-3. [Installation](#Installation)
-4. [Demo](#Demo)
-5. [Todo](#Todo)
-6. [License](#License)
+- [Usage](#Usage)
+- [Reference](#Reference)
+- [Installation](#Installation)
+- [Demo](#Demo)
+- [Todo](#Todo)
+- [License](#License)
 
 # Usage
 
@@ -69,6 +78,14 @@ In case you are using `@Published` you can easily log that subscription to Timel
 
 # Installation
 
+## CocoaPods
+
+[CocoaPods](https://cocoapods.org) is a dependency manager for Cocoa projects. For usage and installation instructions, visit their website. To integrate TimelaneCombine into your Xcode project using CocoaPods, specify it in your `Podfile`:
+
+```ruby
+pod 'TimelaneCombine', '~> 1.0.3'
+```
+
 ## Swift Package Manager
 
 I . Automatically in Xcode:
@@ -88,7 +105,6 @@ The Timelane package contains a demo app at: https://github.com/icanzilb/timelan
 
 # Todo
 
-- [ ] CocoaPods
 - [ ] Carthage
 
 # License
