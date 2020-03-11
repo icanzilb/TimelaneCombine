@@ -76,22 +76,6 @@ In case you are using `@Published` you can easily log that subscription to Timel
 
 # Installation
 
-## CocoaPods
-
-[CocoaPods](https://cocoapods.org) is a dependency manager for Cocoa projects. For usage and installation instructions, visit their website. To integrate TimelaneCombine into your Xcode project using CocoaPods, specify it in your `Podfile`:
-
-```ruby
-pod 'TimelaneCombine', '~> 1.0.3'
-```
-
-### Carthage
-
-[Carthage](https://github.com/Carthage/Carthage) is a decentralized dependency manager that builds your dependencies and provides you with binary frameworks. To integrate TimelaneCombine into your Xcode project using Carthage, specify it in your `Cartfile`:
-
-```ogdl
-github "icanzilb/TimelaneCombine" "1.0.4"
-```
-
 ## Swift Package Manager
 
 I . Automatically in Xcode:
@@ -102,7 +86,23 @@ I . Automatically in Xcode:
 II . Manually in your **Package.swift** file add:
 
 ```swift
-.package(url: "https://github.com/icanzilb/TimelaneCombine", .from("1.0.1"))
+.package(url: "https://github.com/icanzilb/TimelaneCombine", .from("1.0.4"))
+```
+
+## CocoaPods
+
+[CocoaPods](https://cocoapods.org) is a dependency manager for Cocoa projects. For usage and installation instructions, visit their website. To integrate TimelaneCombine into your Xcode project using CocoaPods, specify it in your `Podfile`:
+
+```ruby
+pod 'TimelaneCombine', '~> 1.0.4'
+```
+
+### Carthage
+
+[Carthage](https://github.com/Carthage/Carthage) is a decentralized dependency manager that builds your dependencies and provides you with binary frameworks. To integrate TimelaneCombine into your Xcode project using Carthage, specify it in your `Cartfile`:
+
+```ogdl
+github "icanzilb/TimelaneCombine" "1.0.4"
 ```
 
 # Demo
