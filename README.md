@@ -3,19 +3,18 @@
    <img src="https://github.com/icanzilb/TimelaneCombine/blob/master/etc/Icon_128x128@2x.png" width="200” max-width="90%" alt="TimelaneCombine" />
 </p>
 
+**TimelaneCombine** provides a Combine bindings for profiling Combine code with the Timelane Instrument.
+
+![Timelane Instrument](etc/timelane.png)
+
 <p align="center">
     <img src="https://img.shields.io/badge/Swift-5.2-orange.svg" />
-    <a href="https://cocoadocs.org/pods/TimelaneCombine/">
-        <img src="http://img.shields.io/badge/Cocoapods-available-green.svg?style=flat" alt="Cocoapod" />
-    </a>
     <img src="https://img.shields.io/cocoapods/v/TimelaneCombine.svg" />
     <img src="https://img.shields.io/cocoapods/l/TimelaneCombine.svg" />
     <img src="https://img.shields.io/cocoapods/p/TimelaneCombine.svg" />
 </p>
 
-**TimelaneCombine** provides a Combine bindings for profiling Combine code with the Timelane Instrument.
-
-![Timelane Instrument](etc/timelane.png)
+#### Table of Contens:
 
 - [Usage](#Usage)
 - [Reference](#Reference)
