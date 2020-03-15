@@ -7,6 +7,7 @@
 //
 
 import Combine
+import TimelaneCore
 
 /// Property wrapper that offers a publisher for the given property
 /// **and** creates a Timelane lane for it.
