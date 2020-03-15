@@ -33,7 +33,7 @@ import Combine
     ///           type of this property if not provided.
     public init(wrappedValue initialValue: Value,
                 _ name: String? = nil,
-                _ filter: Set<Publishers.LaneType> = Set(Publishers.LaneType.allCases)) {
+                filter: Set<Publishers.LaneType> = Set(Publishers.LaneType.allCases)) {
         self.value = initialValue
         self.laneName = name ?? "\(initialValue.self)"
         self.filter = filter
