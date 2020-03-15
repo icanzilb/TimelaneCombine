@@ -11,9 +11,9 @@ import Combine
 /// Property wrapper that offers a publisher for the given property
 /// **and** creates a Timelane lane for it.
 @propertyWrapper public class PublishedOnLane<Value> {
-    
     @Published private var value: Value
     private let laneName: String
+    private let filter: Set<Publishers.LaneType>
     
     /// Gets or sets the value of this property.
     public var wrappedValue: Value {
@@ -23,7 +23,7 @@ import Combine
     
     /// Gets the lane-enabled `Publisher` for this property.
     public var projectedValue: AnyPublisher<Value, Never> {
-        return self.$value.lane(laneName).eraseToAnyPublisher()
+        return self.$value.lane(laneName, filter: filter).eraseToAnyPublisher()
     }
     
     /// Creates a `PublishedOnLane` wrapper.
@@ -32,8 +32,10 @@ import Combine
     ///   - name: The name of this lane; defaults to the
     ///           type of this property if not provided.
     public init(wrappedValue initialValue: Value,
-                _ name: String? = nil) {
+                _ name: String? = nil,
+                _ filter: Set<Publishers.LaneType> = Set(Publishers.LaneType.allCases)) {
         self.value = initialValue
         self.laneName = name ?? "\(initialValue.self)"
+        self.filter = filter
     }
 }
