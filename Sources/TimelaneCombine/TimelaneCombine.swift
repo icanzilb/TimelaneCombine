@@ -7,10 +7,6 @@ import Combine
 import TimelaneCore
 
 extension Publishers {
-    public enum LaneType: Int, CaseIterable {
-        case subscription, event
-    }
-
     public class TimelanePublisher<Upstream: Publisher>: Publisher {
         public typealias Output = Upstream.Output
         public typealias Failure = Upstream.Failure
@@ -18,13 +14,13 @@ extension Publishers {
         private let upstream: Upstream
         
         private let subscription: Timelane.Subscription
-        private let filter: Set<Publishers.LaneType>
+        private let filter: Set<Timelane.LaneType>
         private let source: String
         private let transformValue: (Upstream.Output) -> String
         
         public init(upstream: Upstream,
                     name: String?,
-                    filter: Set<Publishers.LaneType>,
+                    filter: Set<Timelane.LaneType>,
                     source: String,
                     transformValue: @escaping (Upstream.Output) -> String) {
             self.upstream = upstream
@@ -109,7 +105,7 @@ extension Publisher {
     ///                     it might be more useful to report the count of elements if there are a lot of them.
     ///   - value: The value emitted by the subscription
     public func lane(_ name: String,
-                     filter: Set<Publishers.LaneType> = Set(Publishers.LaneType.allCases),
+                     filter: Set<Timelane.LaneType> = Set(Timelane.LaneType.allCases),
                      file: StaticString = #file,
                      function: StaticString  = #function, line: UInt = #line,
                      transformValue: @escaping (_ value: Output) -> String = { String(describing: $0) })

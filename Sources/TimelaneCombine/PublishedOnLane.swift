@@ -13,7 +13,7 @@ import Combine
 @propertyWrapper public class PublishedOnLane<Value> {
     @Published private var value: Value
     private let laneName: String
-    private let filter: Set<Publishers.LaneType>
+    private let filter: Set<Timelane.LaneType>
     
     /// Gets or sets the value of this property.
     public var wrappedValue: Value {
@@ -33,7 +33,7 @@ import Combine
     ///           type of this property if not provided.
     public init(wrappedValue initialValue: Value,
                 _ name: String? = nil,
-                filter: Set<Publishers.LaneType> = Set(Publishers.LaneType.allCases)) {
+                filter: Set<Timelane.LaneType> = Set(Timelane.LaneType.allCases)) {
         self.value = initialValue
         self.laneName = name ?? "\(initialValue.self)"
         self.filter = filter
