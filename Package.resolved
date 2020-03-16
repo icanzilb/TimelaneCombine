@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "TimelaneCore",
+        "repositoryURL": "https://github.com/icanzilb/TimelaneCore",
+        "state": {
+          "branch": null,
+          "revision": "7b57071519e5e60e3f5fe6e4466561d4f2dbe116",
+          "version": "1.0.5"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
