@@ -1,0 +1,43 @@
+name: Swift
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  SPM:
+    name: "Tests via SPM"
+    runs-on: macOS-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run tests
+      run: set -o pipefail && swift test
+
+  macOS:
+    name: "Build macOS"
+    runs-on: macOS-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run tests
+      run: set -o pipefail && xcodebuild -project TimelaneCore/TimelaneCore.xcodeproj -scheme TimelaneCore -sdk macosx -destination "arch=x86_64" build | xcpretty -c -r html --output logs/macOS.html
+    - uses: actions/upload-artifact@v1
+      with:
+        name: build-logs-${{ github.run_id }}
+        path: logs
+
+  iOS:
+    name: "Build iOS"
+    runs-on: macOS-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run tests
+      run: set -o pipefail && xcodebuild -project TimelaneCore/TimelaneCore.xcodeproj -scheme TimelaneCore -sdk iphonesimulator -destination "name=iPhone 11" build | xcpretty -c -r html --output logs/iOS.html
+    - uses: actions/upload-artifact@v1
+      with:
+        name: build-logs-${{ github.run_id }}
+        path: logs
