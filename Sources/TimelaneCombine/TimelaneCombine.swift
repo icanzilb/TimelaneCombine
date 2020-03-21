@@ -22,11 +22,12 @@ extension Publishers {
                     name: String?,
                     filter: Set<Timelane.LaneType>,
                     source: String,
-                    transformValue: @escaping (Upstream.Output) -> String) {
+                    transformValue: @escaping (Upstream.Output) -> String,
+                    logger: @escaping Timelane.Logger) {
             self.upstream = upstream
             self.filter = filter
             self.source = source
-            self.subscription = Timelane.Subscription(name: name)
+            self.subscription = Timelane.Subscription(name: name, logger: logger)
             self.transformValue = transformValue
         }
         
@@ -108,7 +109,8 @@ extension Publisher {
                      filter: Set<Timelane.LaneType> = Set(Timelane.LaneType.allCases),
                      file: StaticString = #file,
                      function: StaticString  = #function, line: UInt = #line,
-                     transformValue: @escaping (_ value: Output) -> String = { String(describing: $0) })
+                     transformValue: @escaping (_ value: Output) -> String = { String(describing: $0) },
+                     logger: @escaping Timelane.Logger = Timelane.defaultLogger)
         -> Publishers.TimelanePublisher<Self> {
 
         let fileName = file.description.components(separatedBy: "/").last!
@@ -118,6 +120,7 @@ extension Publisher {
                                             name: name,
                                             filter: filter,
                                             source: source,
-                                            transformValue: transformValue)
+                                            transformValue: transformValue,
+                                            logger: logger)
     }
 }

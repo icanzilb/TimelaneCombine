@@ -26,7 +26,7 @@ import TimelaneCore
     public var projectedValue: AnyPublisher<Value, Never> {
         return self.$value.lane(laneName, filter: filter).eraseToAnyPublisher()
     }
-    
+
     /// Creates a `PublishedOnLane` wrapper.
     /// - Parameters:
     ///   - initialValue: Value to wrap; usually implicit.

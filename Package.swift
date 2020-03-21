@@ -25,7 +25,7 @@ let package = Package(
             dependencies: ["TimelaneCore"]),
         .testTarget(
             name: "TimelaneCombineTests",
-            dependencies: ["TimelaneCombine"]),
+            dependencies: ["TimelaneCombine", "TimelaneCoreTestUtils"]),
     ],
     swiftLanguageVersions: [.v5]
 )
