@@ -7,26 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9CB2DFB72449156A008992FE /* TimelaneCore in Frameworks */ = {isa = PBXBuildFile; productRef = 9CB2DFB62449156A008992FE /* TimelaneCore */; };
 		BC03E13624183A0B00D091A4 /* TimelaneCombine.h in Headers */ = {isa = PBXBuildFile; fileRef = BC03E13424183A0B00D091A4 /* TimelaneCombine.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BC03E13E24183A2D00D091A4 /* PublishedOnLane.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC03E13C24183A2D00D091A4 /* PublishedOnLane.swift */; };
 		BC03E13F24183A2D00D091A4 /* TimelaneCombine.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC03E13D24183A2D00D091A4 /* TimelaneCombine.swift */; };
-		BC03E14924183BC800D091A4 /* TimelaneCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC03E14824183BC800D091A4 /* TimelaneCore.framework */; platformFilter = ios; };
-		BC03E14A24183BC800D091A4 /* TimelaneCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BC03E14824183BC800D091A4 /* TimelaneCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		BC03E14B24183BC800D091A4 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				BC03E14A24183BC800D091A4 /* TimelaneCore.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		BC03E13124183A0B00D091A4 /* TimelaneCombine.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TimelaneCombine.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -34,8 +19,6 @@
 		BC03E13524183A0B00D091A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BC03E13C24183A2D00D091A4 /* PublishedOnLane.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PublishedOnLane.swift; path = ../../Sources/TimelaneCombine/PublishedOnLane.swift; sourceTree = "<group>"; };
 		BC03E13D24183A2D00D091A4 /* TimelaneCombine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TimelaneCombine.swift; path = ../../Sources/TimelaneCombine/TimelaneCombine.swift; sourceTree = "<group>"; };
-		BC03E14124183B0E00D091A4 /* TimelaneCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TimelaneCore.framework; path = ../Carthage/Build/iOS/TimelaneCore.framework; sourceTree = "<group>"; };
-		BC03E14824183BC800D091A4 /* TimelaneCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TimelaneCore.framework; path = Carthage/Build/iOS/TimelaneCore.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,7 +26,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BC03E14924183BC800D091A4 /* TimelaneCore.framework in Frameworks */,
+				9CB2DFB72449156A008992FE /* TimelaneCore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,8 +64,6 @@
 		BC03E14024183B0E00D091A4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				BC03E14824183BC800D091A4 /* TimelaneCore.framework */,
-				BC03E14124183B0E00D091A4 /* TimelaneCore.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -109,13 +90,15 @@
 				BC03E12D24183A0A00D091A4 /* Sources */,
 				BC03E12E24183A0A00D091A4 /* Frameworks */,
 				BC03E12F24183A0A00D091A4 /* Resources */,
-				BC03E14B24183BC800D091A4 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = TimelaneCombine;
+			packageProductDependencies = (
+				9CB2DFB62449156A008992FE /* TimelaneCore */,
+			);
 			productName = TimelaneCombine;
 			productReference = BC03E13124183A0B00D091A4 /* TimelaneCombine.framework */;
 			productType = "com.apple.product-type.framework";
@@ -144,6 +127,9 @@
 				Base,
 			);
 			mainGroup = BC03E12724183A0A00D091A4;
+			packageReferences = (
+				9CB2DFB52449156A008992FE /* XCRemoteSwiftPackageReference "TimelaneCore" */,
+			);
 			productRefGroup = BC03E13224183A0B00D091A4 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -231,11 +217,14 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = iphoneos;
+				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = "macosx appletvsimulator appletvos watchsimulator watchos iphonesimulator iphoneos";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TVOS_DEPLOYMENT_TARGET = 13.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
+				WATCHOS_DEPLOYMENT_TARGET = 6.0;
 			};
 			name = Debug;
 		};
@@ -287,12 +276,15 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
-				SDKROOT = iphoneos;
+				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = "macosx appletvsimulator appletvos watchsimulator watchos iphonesimulator iphoneos";
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				TVOS_DEPLOYMENT_TARGET = 13.0;
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
+				WATCHOS_DEPLOYMENT_TARGET = 6.0;
 			};
 			name = Release;
 		};
@@ -317,12 +309,13 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.icanzilb.TimelaneCombine;
+				PRODUCT_BUNDLE_IDENTIFIER = com.underplot.TimelaneCombine;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = "1,2,3,4";
 			};
 			name = Debug;
 		};
@@ -347,11 +340,12 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.icanzilb.TimelaneCombine;
+				PRODUCT_BUNDLE_IDENTIFIER = com.underplot.TimelaneCombine;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = "1,2,3,4";
 			};
 			name = Release;
 		};
@@ -377,6 +371,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		9CB2DFB52449156A008992FE /* XCRemoteSwiftPackageReference "TimelaneCore" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/icanzilb/TimelaneCore";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		9CB2DFB62449156A008992FE /* TimelaneCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9CB2DFB52449156A008992FE /* XCRemoteSwiftPackageReference "TimelaneCore" */;
+			productName = TimelaneCore;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = BC03E12824183A0A00D091A4 /* Project object */;
 }
