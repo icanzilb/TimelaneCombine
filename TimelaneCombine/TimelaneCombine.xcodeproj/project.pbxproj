@@ -3,14 +3,14 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		BC03E13624183A0B00D091A4 /* TimelaneCombine.h in Headers */ = {isa = PBXBuildFile; fileRef = BC03E13424183A0B00D091A4 /* TimelaneCombine.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BC03E13E24183A2D00D091A4 /* PublishedOnLane.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC03E13C24183A2D00D091A4 /* PublishedOnLane.swift */; };
 		BC03E13F24183A2D00D091A4 /* TimelaneCombine.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC03E13D24183A2D00D091A4 /* TimelaneCombine.swift */; };
-		BC03E14924183BC800D091A4 /* TimelaneCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC03E14824183BC800D091A4 /* TimelaneCore.framework */; platformFilter = ios; };
+		BC03E14924183BC800D091A4 /* TimelaneCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC03E14824183BC800D091A4 /* TimelaneCore.framework */; };
 		BC03E14A24183BC800D091A4 /* TimelaneCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BC03E14824183BC800D091A4 /* TimelaneCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
@@ -307,7 +307,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/Carthage/Build/macOS",
 				);
 				INFOPLIST_FILE = TimelaneCombine/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -317,9 +317,12 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.icanzilb.TimelaneCombine;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.underplot.TimelaneCombine;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos watchos watchsimulator appletvos appletvsimulator macosx";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -337,7 +340,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/Carthage/Build/macOS",
 				);
 				INFOPLIST_FILE = TimelaneCombine/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -347,9 +350,12 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.icanzilb.TimelaneCombine;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.underplot.TimelaneCombine;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos watchos appletvos macosx watchsimulator appletvsimulator iphonesimulator";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
