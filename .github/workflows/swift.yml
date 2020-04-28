@@ -15,16 +15,3 @@ jobs:
     - uses: actions/checkout@v2
     - name: Run tests
       run: set -o pipefail && swift test
-
-  Carthage:
-    name: "Test Carthage compatibility"
-    runs-on: macOS-latest
-
-    steps:
-    - uses: actions/checkout@v2
-    - name: Check Carthage build
-      run: |
-        cd TimelaneCombine
-        carthage bootstrap --no-use-binaries
-        carthage build --no-skip-current --no-use-binaries
-
