@@ -9,7 +9,6 @@
 
 <p align="center">
     <img src="https://img.shields.io/badge/Swift-5.2-orange.svg" />
-    <img src="https://img.shields.io/cocoapods/v/TimelaneCombine.svg" />
     <img src="https://img.shields.io/cocoapods/l/TimelaneCombine.svg" />
     <img src="https://img.shields.io/cocoapods/p/TimelaneCombine.svg" />
 </p>
@@ -86,7 +85,7 @@ I . Automatically in Xcode:
 II . Manually in your **Package.swift** file add:
 
 ```swift
-.package(url: "https://github.com/icanzilb/TimelaneCombine", .from("1.0.4"))
+.package(url: "https://github.com/icanzilb/TimelaneCombine", from: "1.0.4")
 ```
 
 ## CocoaPods
