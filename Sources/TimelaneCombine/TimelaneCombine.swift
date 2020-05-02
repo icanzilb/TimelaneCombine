@@ -3,6 +3,7 @@
 // For the license agreement for this code check the LICENSE file.
 //
 
+import Foundation
 import Combine
 import TimelaneCore
 
@@ -79,12 +80,16 @@ extension Publishers {
             
             upstream
                 .handleEvents(receiveCancel: {
-                    // Cancelling the subscription
-                    if filter.contains(.subscription) {
-                        subscription.end(state: .cancelled)
-                    }
-                    if filter.contains(.event) {
-                        subscription.event(value: .cancelled, source: source)
+                    // Sometimes a "cancel" event preceeds "finished" so we seem to
+                    // need this hack below to make sure "finished" goes out first.
+                    DispatchQueue.main.async {
+                        // Cancelling the subscription
+                        if filter.contains(.subscription) {
+                            subscription.end(state: .cancelled)
+                        }
+                        if filter.contains(.event) {
+                            subscription.event(value: .cancelled, source: source)
+                        }
                     }
                 })
                 .subscribe(sink)
