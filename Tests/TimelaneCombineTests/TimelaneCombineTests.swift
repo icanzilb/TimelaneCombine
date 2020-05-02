@@ -83,6 +83,11 @@ final class TimelaneCombineTests: XCTestCase {
         cancellable?.cancel()
         cancellable = nil
         
+        // Wait a beat before checking for cancelled event
+        let fauxExpectation = expectation(description: "Just waiting a beat")
+        DispatchQueue.main.async(execute: fauxExpectation.fulfill)
+        wait(for: [fauxExpectation], timeout: 1)
+        
         XCTAssertEqual(recorder.logged.count, 2)
         guard recorder.logged.count == 2 else {
             return
