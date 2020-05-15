@@ -39,4 +39,11 @@ import TimelaneCore
         self.laneName = name ?? "\(initialValue.self)"
         self.filter = filter
     }
+
+    public init(wrappedValue initialValue: Value,
+                _ name: String? = nil) {
+        self.value = initialValue
+        self.laneName = name ?? "\(initialValue.self)"
+        self.filter = Set(Timelane.LaneType.allCases)
+    }
 }
