@@ -14,11 +14,12 @@ extension Publishers {
         
         private let upstream: Upstream
         
-        private let subscription: Timelane.Subscription
+        private let name: String?
         private let filter: Set<Timelane.LaneType>
         private let source: String
         private let transformValue: (Upstream.Output) -> String
-        
+        private let logger: Timelane.Logger
+
         public init(upstream: Upstream,
                     name: String?,
                     filter: Set<Timelane.LaneType>,
@@ -26,16 +27,17 @@ extension Publishers {
                     transformValue: @escaping (Upstream.Output) -> String,
                     logger: @escaping Timelane.Logger) {
             self.upstream = upstream
+            self.name = name
             self.filter = filter
             self.source = source
-            self.subscription = Timelane.Subscription(name: name, logger: logger)
             self.transformValue = transformValue
+            self.logger = logger
         }
         
         public func receive<S: Subscriber>(subscriber: S) where Failure == S.Failure, Output == S.Input {
             let filter = self.filter
             let source = self.source
-            let subscription = self.subscription
+            let subscription = Timelane.Subscription(name: name, logger: logger)
             let transform = self.transformValue
             
             let sink = AnySubscriber<Upstream.Output, Upstream.Failure>(
