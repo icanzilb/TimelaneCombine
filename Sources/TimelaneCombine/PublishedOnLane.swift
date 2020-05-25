@@ -14,7 +14,7 @@ import TimelaneCore
 @propertyWrapper public class PublishedOnLane<Value> {
     @Published private var value: Value
     private let laneName: String
-    private let filter: Set<Timelane.LaneType>
+    private let filter: Timelane.LaneTypeOptions
     
     /// Gets or sets the value of this property.
     public var wrappedValue: Value {
@@ -34,7 +34,7 @@ import TimelaneCore
     ///           type of this property if not provided.
     public init(wrappedValue initialValue: Value,
                 _ name: String? = nil,
-                filter: Set<Timelane.LaneType> = Set(Timelane.LaneType.allCases)) {
+                filter: Timelane.LaneTypeOptions = .all) {
         self.value = initialValue
         self.laneName = name ?? "\(initialValue.self)"
         self.filter = filter
@@ -44,6 +44,6 @@ import TimelaneCore
                 _ name: String? = nil) {
         self.value = initialValue
         self.laneName = name ?? "\(initialValue.self)"
-        self.filter = Set(Timelane.LaneType.allCases)
+        self.filter = .all
     }
 }

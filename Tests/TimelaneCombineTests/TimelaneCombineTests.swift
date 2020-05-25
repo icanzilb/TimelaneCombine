@@ -12,7 +12,7 @@ final class TimelaneCombineTests: XCTestCase {
         Timelane.Subscription.didEmitVersion = true
         
         _ = [1, 2, 3].publisher
-            .lane("Test Subscription", filter: [.event], logger: recorder.log)
+            .lane("Test Subscription", filter: .event, logger: recorder.log)
             .sink(receiveValue: {_ in })
         
         XCTAssertEqual(recorder.logged.count, 4)
@@ -35,7 +35,7 @@ final class TimelaneCombineTests: XCTestCase {
         
         let subject = CurrentValueSubject<Int, Never>(0)
         let cancellable = subject
-            .lane("Test Subscription", filter: [.event], logger: recorder.log)
+            .lane("Test Subscription", filter: .event, logger: recorder.log)
             .sink(receiveValue: {_ in })
 
         XCTAssertNotNil(cancellable)
@@ -110,7 +110,7 @@ final class TimelaneCombineTests: XCTestCase {
         
         let subject = CurrentValueSubject<Int, TestError>(0)
         let cancellable = subject
-            .lane("Test Subscription", filter: [.event], logger: recorder.log)
+            .lane("Test Subscription", filter: .event, logger: recorder.log)
             .sink(receiveCompletion: { _ in }) { _ in }
 
         XCTAssertNotNil(cancellable)
@@ -140,7 +140,7 @@ final class TimelaneCombineTests: XCTestCase {
         
         let subject = CurrentValueSubject<Int, TestError>(0)
         let cancellable = subject
-            .lane("Test Subscription", filter: [.subscription], logger: recorder.log)
+            .lane("Test Subscription", filter: .subscription, logger: recorder.log)
             .sink(receiveCompletion: { _ in }) { _ in }
 
         XCTAssertNotNil(cancellable)
@@ -168,7 +168,7 @@ final class TimelaneCombineTests: XCTestCase {
         
         let subject = CurrentValueSubject<Int, TestError>(0)
         let cancellable = subject
-            .lane("Test Subscription", filter: [.event], transformValue: { _ in return "TEST" }, logger: recorder.log)
+            .lane("Test Subscription", filter: .event, transformValue: { _ in return "TEST" }, logger: recorder.log)
             .sink(receiveCompletion: { _ in }) { _ in }
 
         XCTAssertNotNil(cancellable)
@@ -192,7 +192,7 @@ final class TimelaneCombineTests: XCTestCase {
         Timelane.Subscription.didEmitVersion = true
 
         let testPublisher = Publishers.TestPublisher(duration: 1.0)
-            .lane("Test Subscription", filter: [.event], transformValue: { _ in return "TEST" }, logger: recorder.log)
+            .lane("Test Subscription", filter: .event, transformValue: { _ in return "TEST" }, logger: recorder.log)
 
         testPublisher
             .sink(receiveCompletion: { _ in }) { _ in }
@@ -232,6 +232,33 @@ final class TimelaneCombineTests: XCTestCase {
         XCTAssertEqual(recorder.logged[5].id, "\(initialSubscriptionCount+3)")
     }
 
+    /// Test timelane does not affect the subscription events
+    func testPasstroughSubscriptionEvents() {
+        let recorder = TestLog()
+        Timelane.Subscription.didEmitVersion = true
+
+        var recordedEvents = [String]()
+        _ = [1, 2, 3].publisher
+            .lane("Test Subscription", filter: .event, transformValue: { _ in return "TEST" }, logger: recorder.log)
+            .handleEvents(receiveSubscription: { _ in
+                recordedEvents.append("Subscribed")
+            }, receiveOutput: { value in
+                recordedEvents.append("Value: \(value)")
+            }, receiveCompletion: { _ in
+                recordedEvents.append("Completed")
+            })
+            .sink { _ in
+                // Nothing to do here
+            }
+        
+        XCTAssertEqual(recordedEvents, [
+            "Subscribed",
+            "Value: 1",
+            "Value: 2",
+            "Value: 3",
+            "Completed"
+        ])
+    }
     
     static var allTests = [
         ("testEmitsEventsFromCompletingPublisher", testEmitsEventsFromCompletingPublisher),
@@ -241,5 +268,6 @@ final class TimelaneCombineTests: XCTestCase {
         ("testEmitsSubscription", testEmitsSubscription),
         ("testFormatting", testFormatting),
         ("testMultipleSubscriptions", testMultipleSubscriptions),
+        ("testPasstroughSubscriptionEvents", testPasstroughSubscriptionEvents),
     ]
 }

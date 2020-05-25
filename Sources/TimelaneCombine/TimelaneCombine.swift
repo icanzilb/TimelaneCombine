@@ -15,14 +15,14 @@ extension Publishers {
         private let upstream: Upstream
         
         private let name: String?
-        private let filter: Set<Timelane.LaneType>
+        private let filter: Timelane.LaneTypeOptions
         private let source: String
         private let transformValue: (Upstream.Output) -> String
         private let logger: Timelane.Logger
 
         public init(upstream: Upstream,
                     name: String?,
-                    filter: Set<Timelane.LaneType>,
+                    filter: Timelane.LaneTypeOptions,
                     source: String,
                     transformValue: @escaping (Upstream.Output) -> String,
                     logger: @escaping Timelane.Logger) {
@@ -113,7 +113,7 @@ extension Publisher {
     ///                     it might be more useful to report the count of elements if there are a lot of them.
     ///   - value: The value emitted by the subscription
     public func lane(_ name: String,
-                     filter: Set<Timelane.LaneType> = Set(Timelane.LaneType.allCases),
+                     filter: Timelane.LaneTypeOptions = .all,
                      file: StaticString = #file,
                      function: StaticString  = #function, line: UInt = #line,
                      transformValue: @escaping (_ value: Output) -> String = { String(describing: $0) },
