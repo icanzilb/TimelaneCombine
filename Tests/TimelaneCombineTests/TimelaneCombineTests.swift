@@ -259,6 +259,44 @@ final class TimelaneCombineTests: XCTestCase {
             "Completed"
         ])
     }
+
+    /// Test the events emitted by a sync array publisher
+    func testEmitsAfterReceiveSubscribe() {
+        let recorder = TestLog()
+        Timelane.Subscription.didEmitVersion = true
+        
+        var subscriptions = [AnyCancellable]()
+        
+        [1, 2, 3].publisher
+            .lane("Pre Subscription", filter: .event, logger: recorder.log)
+            .subscribe(on: DispatchQueue.global())
+            .receive(on: RunLoop.main)
+            .lane("Post Subscription", filter: .event, logger: recorder.log)
+            .sink(receiveValue: {_ in })
+            .store(in: &subscriptions)
+        
+        let fauxExpectation = expectation(description: "Just waiting a beat")
+        DispatchQueue.main.asyncAfter(wallDeadline: .now() + 2) {
+            fauxExpectation.fulfill()
+        }
+        wait(for: [fauxExpectation], timeout: 3)
+
+        XCTAssertEqual(recorder.logged.count, 8)
+        guard recorder.logged.count == 8 else {
+            return
+        }
+        print(recorder.logged.map({ $0.outputTldr }))
+        XCTAssertTrue(recorder.logged.map({ $0.outputTldr }).contains("Output, Pre Subscription, 1"))
+        XCTAssertTrue(recorder.logged.map({ $0.outputTldr }).contains("Output, Pre Subscription, 2"))
+        XCTAssertTrue(recorder.logged.map({ $0.outputTldr }).contains("Output, Pre Subscription, 3"))
+        XCTAssertTrue(recorder.logged.map({ $0.outputTldr }).contains("Completed, Pre Subscription, "))
+
+        XCTAssertTrue(recorder.logged.map({ $0.outputTldr }).contains("Output, Post Subscription, 1"))
+        XCTAssertTrue(recorder.logged.map({ $0.outputTldr }).contains("Output, Post Subscription, 2"))
+        XCTAssertTrue(recorder.logged.map({ $0.outputTldr }).contains("Output, Post Subscription, 3"))
+        XCTAssertTrue(recorder.logged.map({ $0.outputTldr }).contains("Completed, Post Subscription, "))
+    }
+
     
     static var allTests = [
         ("testEmitsEventsFromCompletingPublisher", testEmitsEventsFromCompletingPublisher),
@@ -269,5 +307,6 @@ final class TimelaneCombineTests: XCTestCase {
         ("testFormatting", testFormatting),
         ("testMultipleSubscriptions", testMultipleSubscriptions),
         ("testPasstroughSubscriptionEvents", testPasstroughSubscriptionEvents),
+        ("testEmitsAfterReceiveSubscribe", testEmitsAfterReceiveSubscribe),
     ]
 }
