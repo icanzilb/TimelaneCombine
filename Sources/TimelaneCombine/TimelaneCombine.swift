@@ -41,11 +41,9 @@ extension Publishers {
             let transform = self.transformValue
             
             let sink = AnySubscriber<Upstream.Output, Upstream.Failure>(
-                receiveSubscription: { [weak self] sub in
-                    guard let self = self else { return }
-                    
-                    if self.filter.contains(.subscription) {
-                        subscription.begin(source: self.source)
+                receiveSubscription: { sub in
+                    if filter.contains(.subscription) {
+                        subscription.begin(source: source)
                     }
                     
                     subscriber.receive(subscription: sub)
