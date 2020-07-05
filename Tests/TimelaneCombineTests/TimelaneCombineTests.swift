@@ -285,7 +285,7 @@ final class TimelaneCombineTests: XCTestCase {
         guard recorder.logged.count == 8 else {
             return
         }
-        print(recorder.logged.map({ $0.outputTldr }))
+
         XCTAssertTrue(recorder.logged.map({ $0.outputTldr }).contains("Output, Pre Subscription, 1"))
         XCTAssertTrue(recorder.logged.map({ $0.outputTldr }).contains("Output, Pre Subscription, 2"))
         XCTAssertTrue(recorder.logged.map({ $0.outputTldr }).contains("Output, Pre Subscription, 3"))
