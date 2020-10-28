@@ -25,5 +25,5 @@ TimelaneCombine provides a Combine bindings for profiling Reactive code with the
   s.source_files = 'Sources/**/*.swift'  
   s.frameworks = 'Foundation', 'Combine'
   
-  s.dependency 'TimelaneCore', '~> 1'
+  s.dependency 'TimelaneCore', '~> 2'
 end
