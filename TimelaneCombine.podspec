@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'TimelaneCombine'
-  s.version          = '1.0.10'
+  s.version          = '2.0.0'
   s.summary          = 'TimelaneCombine provides a Combine bindings for profiling Combine code with the Timelane Instrument.'
 
   s.description      = <<-DESC
@@ -25,5 +25,5 @@ TimelaneCombine provides a Combine bindings for profiling Reactive code with the
   s.source_files = 'Sources/**/*.swift'  
   s.frameworks = 'Foundation', 'Combine'
   
-  s.dependency 'TimelaneCore', '~> 1'
+  s.dependency 'TimelaneCore', '~> 2'
 end

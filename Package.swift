@@ -9,7 +9,7 @@ let package = Package(
       .macOS(.v10_15),
       .iOS(.v13),
       .tvOS(.v13),
-      .watchOS(.v6)
+      .watchOS(.v6),
     ],
     products: [
         .library(
@@ -17,7 +17,7 @@ let package = Package(
             targets: ["TimelaneCombine"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/icanzilb/TimelaneCore", from: "1.0.0")
+        .package(url: "https://github.com/icanzilb/TimelaneCore", from: "2.0.0")
     ],
     targets: [
         .target(
