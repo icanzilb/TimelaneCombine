@@ -297,6 +297,111 @@ final class TimelaneCombineTests: XCTestCase {
         XCTAssertTrue(recorder.logged.map({ $0.outputTldr }).contains("Completed, Post Subscription, "))
     }
 
+    /// Test the default transformValue behavior.
+    func testDefaultTransformValue() {
+        let recorder = TestLog()
+        Timelane.Subscription.didEmitVersion = true
+        
+        // Test the default transformValue behavior.
+        do {
+            let subject = CurrentValueSubject<String, TestError>("")
+            let cancellable = subject
+                .lane("Test Subscription", filter: .event, logger: recorder.log)
+                .sink(receiveCompletion: { _ in }) { _ in }
+
+            XCTAssertNotNil(cancellable)
+            
+            subject.send("Short Message")
+            subject.send("Long, long, long, long, long, long, long, long, long, long, long, long, long, long, long, long, long, long, long, long, long, long, long, long, long message.")
+            subject.send(completion: .finished)
+            
+            XCTAssertEqual(recorder.logged.count, 4)
+            guard recorder.logged.count == 4 else {
+                return
+            }
+            XCTAssertEqual(recorder.logged[1].value, "Short Message")
+            XCTAssertEqual(recorder.logged[2].value, "Long, long, long, long, long, long, long, long, lo...")
+        }
+    }
+    
+    func testCustomTransformValue() {
+        let recorder = TestLog()
+        Timelane.Subscription.didEmitVersion = true
+        
+        // Test the custom transform behavior
+        do {
+            let subject = CurrentValueSubject<String, TestError>("")
+            let cancellable = subject
+                .lane("Test Subscription", filter: .event, transformValue: { $0 }, logger: recorder.log)
+                .sink(receiveCompletion: { _ in }) { _ in }
+
+            XCTAssertNotNil(cancellable)
+            
+            subject.send("Short Message")
+            subject.send("Long, long, long, long, long, long, long, long, long, long, long, long, long, long, long, long, long, long, long, long, long, long, long, long, long message.")
+            subject.send(completion: .finished)
+            
+            XCTAssertEqual(recorder.logged.count, 4)
+            guard recorder.logged.count == 4 else {
+                return
+            }
+            XCTAssertEqual(recorder.logged[1].value, "Short Message")
+            XCTAssertEqual(recorder.logged[2].value, "Long, long, long, long, long, long, long, long, long, long, long, long, long, long, long, long, long, long, long, long, long, long, long, long, long message.")
+        }
+    }
+    
+    /// Test timelane does not affect the subscription events
+    func testFuture() {
+        let recorder = TestLog()
+        Timelane.Subscription.didEmitVersion = true
+        
+        // Test successful future
+        do {
+            var recordedEvents = [String]()
+            var cancellable: Cancellable? = Future<String, Never> { promise in promise(.success("Success")) }
+                .lane("Test Subscription", filter: .event, transformValue: { _ in return "TEST" }, logger: recorder.log)
+                .handleEvents(receiveSubscription: { _ in
+                    recordedEvents.append("Subscribed")
+                }, receiveOutput: { value in
+                    recordedEvents.append("Value: \(value)")
+                }, receiveCompletion: { _ in
+                    recordedEvents.append("Completed")
+                })
+                .sink { _ in }
+            
+            XCTAssertEqual(recordedEvents, [
+                "Subscribed",
+                "Value: Success",
+                "Completed"
+            ])
+
+            _ = cancellable
+            cancellable = nil
+        }
+
+        // Test error future
+        do {
+            var recordedEvents = [String]()
+            var cancellable: Cancellable? = Future<String, TestError> { promise in promise(.failure(TestError.test)) }
+                .lane("Test Subscription", filter: .event, transformValue: { _ in return "TEST" }, logger: recorder.log)
+                .handleEvents(receiveSubscription: { _ in
+                    recordedEvents.append("Subscribed")
+                }, receiveOutput: { value in
+                    recordedEvents.append("Value: \(value)")
+                }, receiveCompletion: { completion in
+                    recordedEvents.append("Completed: \(completion)")
+                })
+                .sink(receiveCompletion: {_ in }, receiveValue: {_ in })
+            
+            XCTAssertEqual(recordedEvents, [
+                "Subscribed",
+                "Completed: failure(TimelaneCombineTests.TimelaneCombineTests.TestError.test)"
+            ])
+
+            _ = cancellable
+            cancellable = nil
+        }
+    }
     
     static var allTests = [
         ("testEmitsEventsFromCompletingPublisher", testEmitsEventsFromCompletingPublisher),
@@ -308,5 +413,8 @@ final class TimelaneCombineTests: XCTestCase {
         ("testMultipleSubscriptions", testMultipleSubscriptions),
         ("testPasstroughSubscriptionEvents", testPasstroughSubscriptionEvents),
         ("testEmitsAfterReceiveSubscribe", testEmitsAfterReceiveSubscribe),
+        ("testDefaultTransformValue", testDefaultTransformValue),
+        ("testCustomTransformValue", testCustomTransformValue),
+        ("testFuture", testFuture),
     ]
 }

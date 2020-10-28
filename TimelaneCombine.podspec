@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'TimelaneCombine'
-  s.version          = '1.0.10'
+  s.version          = '2.0.0'
   s.summary          = 'TimelaneCombine provides a Combine bindings for profiling Combine code with the Timelane Instrument.'
 
   s.description      = <<-DESC
