@@ -1,6 +1,6 @@
 <h1 align="center"> Timelane + Combine </h1>
 <p align="center"> 
-   <img src="https://github.com/icanzilb/TimelaneCombine/blob/master/etc/Icon_128x128@2x.png" width="200” max-width="90%" alt="TimelaneCombine" />
+   <img src="etc/Icon_128x128@2x.png" width="200” max-width="90%" alt="TimelaneCombine" />
 </p>
 
 **TimelaneCombine** provides a Combine bindings for profiling Combine code with the Timelane Instrument.
